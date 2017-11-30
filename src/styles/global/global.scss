@@ -1,0 +1,14 @@
+@import '../tools/utils';
+body {
+  background-color: #6e98bf;
+  padding: 20px 0;
+  color: #333;
+  line-height: 1;
+}
+.hidden {
+  display: none;
+}
+.site-wrapper {
+  @include customWidth();
+  margin: 0 auto;
+}
