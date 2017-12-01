@@ -99,7 +99,7 @@ gulp.task('dev', ['pug-pages', 'sass', 'js-pages', 'js-libs-before', 'js-libs-af
   gulp.watch(['./src/styles/**/*.scss'], ['sass'])
 })
 
-gulp.task('build', ['pug-pages', 'sass', 'js-pages', 'js-libs-bofore', 'js-libs-after', 'js-common', 'assets'], () => {
+gulp.task('build', ['pug-pages', 'sass', 'js-pages', 'js-libs-before', 'js-libs-after', 'js-common', 'assets'], () => {
   console.log(`[${new Date()}]: ready to build!`)
   deploy()
 })
@@ -109,9 +109,10 @@ gulp.task('deploy', () => {
 })
 
 function deploy () {
+  console.log('[Start deploying...]')
   gulp.src(['./dist/**/*.*'])
     .pipe(scp({
-      host: config.deploy.host,
+      host: config.deploy.hostname,
       username: config.deploy.username,
       password: config.deploy.password,
       dest: config.deploy.dest

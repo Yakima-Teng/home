@@ -1,0 +1,8 @@
+mixin mixinMenu(activeMenuAlias)
+  - var menus = ['home', 'articles', 'demos', 'about']
+  link(rel="stylesheet", href="../../styles/components/menu.min.css")
+  nav.site-menu
+    ul.items
+      each menu in menus
+        li.item(class = menu === activeMenuAlias ? "active" : "")
+            a.link(href="./" + menu + ".html")= menu

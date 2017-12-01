@@ -1,6 +1,7 @@
 @import '../tools/utils';
+
 body {
-  background-color: #6e98bf;
+  background-color: $bg-color;
   padding: 20px 0;
   color: #333;
   line-height: 1;
@@ -11,4 +12,11 @@ body {
 .site-wrapper {
   @include customWidth();
   margin: 0 auto;
+}
+.site-content {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  background-color: #fff;
 }

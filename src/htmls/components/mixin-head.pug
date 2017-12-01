@@ -1,0 +1,19 @@
+mixin mixinHead(title, desc)
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    if title
+      title #{title} | Yakima Teng | 滕运锋
+    else
+      title Yakima Teng | 滕运锋
+    meta(name="description", content=desc)
+    link(rel="stylesheet", href="../../styles/global/reset.min.css")
+    link(rel="stylesheet", href="../../styles/global/global.min.css")
+    link(rel="shortcut icon", href="../../assets/images/favicon.ico", type="image/x-icon")
+    //- script(src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js")
+    //- script(src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js")
+    script(src="../../scripts/libs/libs-before.min.js")
+    if block
+      block
+    else
+      //- show nothing here
