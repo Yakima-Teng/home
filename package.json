@@ -5,8 +5,9 @@
   "main": "gulpfile.js",
   "scripts": {
     "dev": "gulp dev",
-    "deploy": "gulp deploy",
     "build": "gulp build",
+    "deploy": "gulp deploy",
+    "buildAndDeploy": "npm-run-all --serial build deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -37,6 +38,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-scp2": "^0.2.0",
-    "gulp-uglify": "^3.0.0"
+    "gulp-uglify": "^3.0.0",
+    "npm-run-all": "^4.1.2"
   }
 }

@@ -100,21 +100,15 @@ gulp.task('dev', ['pug-pages', 'sass', 'js-pages', 'js-libs-before', 'js-libs-af
 })
 
 gulp.task('build', ['pug-pages', 'sass', 'js-pages', 'js-libs-before', 'js-libs-after', 'js-common', 'assets'], () => {
-  console.log(`[${new Date()}]: ready to build!`)
-  deploy()
+  console.log(`[${new Date()}]: Finish building!`)
 })
 
 gulp.task('deploy', () => {
-  return deploy()
-})
-
-function deploy () {
-  console.log('[Start deploying...]')
-  gulp.src(['./dist/**/*.*'])
+  return gulp.src(['./dist/**/*.*'])
     .pipe(scp({
       host: config.deploy.hostname,
       username: config.deploy.username,
       password: config.deploy.password,
       dest: config.deploy.dest
     }))
-}
+})
