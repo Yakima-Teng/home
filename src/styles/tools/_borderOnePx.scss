@@ -21,8 +21,8 @@
   top: 0;
   right: 0;
   height: 1px;
-  border-top: 1px solid borderColor;
-  color: borderColor;
+  border-top: 1px solid $borderColor;
+  color: $borderColor;
   transform-origin: 0 0;
   transform: scaleY(0.5);
 }

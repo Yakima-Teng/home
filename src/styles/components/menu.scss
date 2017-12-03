@@ -13,6 +13,7 @@
     }
   }
   .link {
+    position: relative;
     display: block;
     height: 45px;
     line-height: 45px;
@@ -27,5 +28,10 @@
       background-color: #808080;
       background-image: linear-gradient(to bottom, #808080, #363636);
     }
+  }
+  .external-link {
+    position: absolute;
+    top: 3px;
+    right: 3px;
   }
 }

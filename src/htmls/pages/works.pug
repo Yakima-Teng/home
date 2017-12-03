@@ -4,16 +4,21 @@ include ../components/mixin-head.pug
 include ../components/mixin-menu.pug
 
 block site-head
-  -var title = 'Demos'
+  -var title = 'Works'
   -var desc = '滕运锋,英文名Yakima Teng,2013年毕业于沈阳药科大学·药学(食品药学方向)专业。博客主要记录了一些生活琐碎、思考感悟,以及药学和IT方面的一些技术文章。'
   +mixinHead(title, desc)
-  link(rel="stylesheet", href="../../styles/pages/demos.min.css")
+  link(rel="stylesheet", href="../../styles/pages/works.min.css")
 
 block site-menu
-  +mixinMenu('demos')
-
-block site-content
-  .content Demos
+  +mixinMenu('works')
 
 block site-foot
-  script(src="../../scripts/pages/demos.min.js")
+  script(src="../../scripts/pages/works.min.js")
+
+block site-content
+  .page-works
+    ul.items
+      li.item
+        header.item-header 生产项目经历
+        ul.details
+          li.detail

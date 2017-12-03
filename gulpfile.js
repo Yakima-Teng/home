@@ -8,6 +8,7 @@ const uglify = require('gulp-uglify')
 const concat = require('gulp-concat')
 const babel = require('gulp-babel')
 const pug = require('gulp-pug')
+const gulpif = require('gulp-if')
 const scp = require('gulp-scp2')
 const config = require('./config')
 const appName = 'home'
@@ -40,10 +41,10 @@ gulp.task('js-pages', () => {
 
 // 对页面展现有较大潜在影响的放在head里优先加载
 gulp.task('js-libs-before', () => {
-  return gulp.src(['./src/scripts/libs/*.min.js'])
+  return gulp.src(['./src/scripts/libs/*.before.js'])
+    .pipe(gulpif(file => file.history[0].indexOf('.min') === -1, babel({ presets: ['env'] })))
+    .pipe(gulpif(file => file.history[0].indexOf('.min') === -1, uglify()))
     .pipe(concat('libs-before.js'))
-    .pipe(babel({ presets: ['env'] }))
-    // .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist/scripts/libs'))
     .pipe(browserSync.stream())
@@ -51,10 +52,10 @@ gulp.task('js-libs-before', () => {
 
 // 对页面展现影响不太大的放在body结束标签前加载
 gulp.task('js-libs-after', () => {
-  return gulp.src(['./src/scripts/libs/*.js', '!./src/scripts/libs/*.min.js'])
+  return gulp.src(['./src/scripts/libs/*.after.js'])
+    .pipe(gulpif(file => file.history[0].indexOf('.min') === -1, babel({ presets: ['env'] })))
+    .pipe(gulpif(file => file.history[0].indexOf('.min') === -1, uglify()))
     .pipe(concat('libs-after.js'))
-    .pipe(babel({ presets: ['env'] }))
-    .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
     .pipe(gulp.dest('./dist/scripts/libs'))
     .pipe(browserSync.stream())
@@ -66,7 +67,7 @@ gulp.task('js-common', () => {
     .pipe(babel({ presets: 'env' }))
     .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
-    .pipe(gulp.dest('.dist/scripts/common'))
+    .pipe(gulp.dest('./dist/scripts/common'))
     .pipe(browserSync.stream())
 })
 
@@ -85,7 +86,7 @@ gulp.task('dev', ['pug-pages', 'sass', 'js-pages', 'js-libs-before', 'js-libs-af
         [`/${appName}`]: 'dist'
       }
     },
-    port: '8888',
+    port: '8889',
     startPath: `/${appName}/htmls/pages/home.html`,
     meddleware: []
   })
@@ -93,8 +94,8 @@ gulp.task('dev', ['pug-pages', 'sass', 'js-pages', 'js-libs-before', 'js-libs-af
   gulp.watch(['./src/assets/**/*.*'], ['assets'])
   gulp.watch(['./src/htmls/**/*.pug'], ['pug-pages'])
   gulp.watch(['./src/scripts/common/**/*.js'], ['js-common'])
-  gulp.watch(['./src/scripts/libs/**/*.min.js'], ['js-libs-before'])
-  gulp.watch(['./src/scripts/libs/**/*.js', '!./src/scripts/libs/**/*.min.js'], ['js-libs-after'])
+  gulp.watch(['./src/scripts/libs/**/*.before.js'], ['js-libs-before'])
+  gulp.watch(['./src/scripts/libs/**/*.after.js'], ['js-libs-after'])
   gulp.watch(['./src/scripts/pages/**/*.js'], ['js-pages'])
   gulp.watch(['./src/styles/**/*.scss'], ['sass'])
 })
